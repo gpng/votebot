@@ -18,7 +18,7 @@ const vote = async (site, wishId, useProxy) => {
     if (useProxy) {
       const proxyString = await getProxy();
       if (!proxyString) return false;
-      args.push([`--proxy-server=${proxyString}`]);
+      args.push(`--proxy-server=${proxyString}`);
     }
 
     const browser = await puppeteer.launch({
