@@ -17,6 +17,7 @@ const vote = async (site, wishId, useProxy) => {
     let args = [];
     if (useProxy) {
       const proxyString = await getProxy();
+      if (!proxyString) return false;
       args.push([`--proxy-server=${proxyString}`]);
     }
 
