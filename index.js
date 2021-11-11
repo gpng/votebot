@@ -12,8 +12,7 @@ const getProxy = async () => {
 
 const vote = async (site, wishId, useProxy) => {
   try {
-    const selector = `#${wishId} > div > article > div.bg-light-ui-100.overflow-hidden.rounded-xl > section > div > div.flex.flex-row.items-center > div`;
-
+    const selector = `#${wishId} > div > article > div.overflow-hidden.rounded-xl > section > div > div.flex.flex-row.items-center > div`;
     let args = [];
     if (useProxy) {
       const proxyString = await getProxy();
@@ -22,7 +21,7 @@ const vote = async (site, wishId, useProxy) => {
     }
 
     const browser = await puppeteer.launch({
-      headless: true,
+      headless: false,
       args,
     });
     const page = await browser.newPage();
