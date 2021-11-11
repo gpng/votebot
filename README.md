@@ -1,5 +1,11 @@
 # Vote Bot
 
+## Setup
+
+```sh
+npm i
+```
+
 ## Usage
 
 ```sh
