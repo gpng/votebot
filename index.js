@@ -21,7 +21,7 @@ const vote = async (site, wishId, useProxy) => {
     }
 
     const browser = await puppeteer.launch({
-      headless: false,
+      headless: true,
       args,
     });
     const page = await browser.newPage();
