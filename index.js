@@ -10,7 +10,7 @@ const getProxy = async () => {
   return res.data.curl;
 };
 
-const vote = async (wishId, useProxy) => {
+const vote = async (site, wishId, useProxy) => {
   try {
     const selector = `#${wishId} > div > article > div.bg-light-ui-100.overflow-hidden.rounded-xl > section > div > div.flex.flex-row.items-center > div`;
 
@@ -25,7 +25,7 @@ const vote = async (wishId, useProxy) => {
       args,
     });
     const page = await browser.newPage();
-    await page.goto("https://padlet.com/GOVTECH_GPO/wfhsetup");
+    await page.goto(site);
     await page.waitForSelector(selector);
     await page.click(selector);
     await browser.close();
@@ -35,11 +35,11 @@ const vote = async (wishId, useProxy) => {
   }
 };
 
-const start = async (wishId, votes, useProxy) => {
+const start = async (site, wishId, votes, useProxy) => {
   let success = 0;
   while (success < votes) {
     process.stdout.write(`Vote number: ${success + 1}...`);
-    const res = await vote(wishId, useProxy);
+    const res = await vote(site, wishId, useProxy);
     if (res) {
       success += 1;
       process.stdout.write(`success\n`);
@@ -51,11 +51,11 @@ const start = async (wishId, votes, useProxy) => {
 
 const main = async () => {
   const errorMessage =
-    "Usage: node index.js <wish id> <number of votes> <use proxy = true/>false>";
+    "Usage: node index.js <site url> <wish id> <number of votes> <use proxy>";
 
   const args = process.argv.slice(2);
-  let [wishId, votes, useProxy] = args;
-  if (!wishId) {
+  let [site, wishId, votes, useProxy] = args;
+  if (!site || !wishId) {
     console.log(errorMessage);
     process.exit(1);
   }
@@ -65,7 +65,7 @@ const main = async () => {
     process.exit(1);
   }
   useProxy = useProxy === "true";
-  await start(wishId, votes, useProxy);
+  await start(site, wishId, votes, useProxy);
 };
 
 main();
